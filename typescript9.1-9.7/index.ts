@@ -6,8 +6,8 @@ app.get("/hello", (_request, response) => {
 });
 app.get("/bmi", (request, response) => {
   // query string example http://localhost:3000/bmi?height=177&weight=78
-  let height: number = Number(request.query.height);
-  let weight: number = Number(request.query.weight);
+  const height = Number(request.query.height);
+  const weight = Number(request.query.weight);
   // Check if height or weight is NaN
   if (isNaN(height) || isNaN(weight)) {
     response.status(400).json({ error: "malformatted parameters" });
@@ -16,7 +16,7 @@ app.get("/bmi", (request, response) => {
   if (!height || !weight) {
     response.status(400).json({ error: "parameter missing" });
   }
-  let bmi = calculateBmi(height, weight);
+  const bmi = calculateBmi(height, weight);
   const responseJson = {
     weight: weight,
     height: height,
