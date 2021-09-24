@@ -29,7 +29,7 @@ app.post("/api/patients", (req, res) => {
   const { name, dateOfBirth, ssn, gender, occupation } = req.body;
   const newPatient = addPatient({ name, dateOfBirth, ssn, gender, occupation });
 
-  res.send(newPatient);
+  res.json(newPatient);
 });
 const port = 3000;
 app.listen(port, () => {

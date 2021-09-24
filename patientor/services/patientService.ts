@@ -1,21 +1,24 @@
 import patients from "../data/patients.json";
-import { NewPatientEntry, Patient } from "../types";
+import { NewPatientEntry, Patient, NonSensitivePatient } from "../types";
 import { v1 as uuid } from "uuid";
+import {
+  parseDate,
+  parseGender,
+  parseString,
+} from "../utility/patientValidator";
 
-export const getPatients = (): Array<
-  Pick<Patient, "id" | "dateOfBirth" | "gender" | "name" | "occupation">
-> => {
+export const getPatients = (): Array<NonSensitivePatient> => {
   return patients;
 };
-export const addPatient = (patient: NewPatientEntry) => {
-  const newId: string = uuid();
+export const addPatient = (patient: NewPatientEntry): Patient => {
   const newPatient: Patient = {
     id: uuid(),
-    name: patient.name,
-    ssn: patient.ssn,
-    dateOfBirth: patient.dateOfBirth,
-    gender: patient.gender,
-    occupation: patient.occupation,
+    name: parseString(patient.name),
+    ssn: parseString(patient.ssn),
+    dateOfBirth: parseDate(patient.dateOfBirth),
+    gender: parseGender(patient.gender),
+    occupation: parseString(patient.occupation),
   };
   patients.push(newPatient);
+  return newPatient;
 };
