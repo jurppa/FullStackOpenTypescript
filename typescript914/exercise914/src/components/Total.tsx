@@ -1,12 +1,9 @@
 import React from "react";
-import { CoursePart } from "../types";
-const Total = (courseParts: Array<CoursePart>) => {
-  return (
-    <p>
-      Number of exercises{" "}
-      {courseParts.reduce((carry, part) => carry + part.exerciseCount, 0)}
-    </p>
-  );
+interface Props {
+  numberOfCourses: number;
+}
+const Total = ({ numberOfCourses }: Props) => {
+  return <p>Number of exercises {numberOfCourses}</p>;
 };
 
 export default Total;

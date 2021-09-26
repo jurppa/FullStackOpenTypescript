@@ -1,24 +1,24 @@
 import React from "react";
 import { CoursePart } from "../types";
-
-const Content = ({
-  courseParts,
-}: {
+import Part from "./Part";
+interface Props {
   courseParts: CoursePart[];
-}): JSX.Element => {
-  return (
-    <div>
-      <p>
-        {courseParts[0].name} {courseParts[0].exerciseCount}
-      </p>
-      <p>
-        {courseParts[1].name} {courseParts[1].exerciseCount}
-      </p>
-      <p>
-        {courseParts[2].name} {courseParts[2].exerciseCount}
-      </p>
-    </div>
-  );
-};
+}
+const Content = ({ courseParts }: Props) => {
+  const assertNever = (value: any): never => {
+    throw new Error(
+      `Unhandled discriminated union member: ${JSON.stringify(value)}`
+    );
+  };
+  const parts = courseParts.map((coursePart, i) => {
+    switch (coursePart.name) {
+      case coursePart.name:
+        return <Part key={i} coursePart={coursePart} />;
 
+      default:
+        return assertNever(coursePart);
+    }
+  });
+  return <div>{parts}</div>;
+};
 export default Content;
