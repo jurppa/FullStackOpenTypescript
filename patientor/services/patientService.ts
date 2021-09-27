@@ -10,6 +10,14 @@ import {
 export const getPatients = (): Array<NonSensitivePatient> => {
   return patients;
 };
+export const getPatientById = (id: string): Patient => {
+  const patientToReturn = patients.find((a) => a.id === id);
+  if (patientToReturn) {
+    return patientToReturn;
+  } else {
+    throw new Error("Not valid id");
+  }
+};
 export const addPatient = (patient: NewPatientEntry): Patient => {
   const newPatient: Patient = {
     id: uuid(),

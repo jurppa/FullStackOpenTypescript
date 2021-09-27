@@ -31,7 +31,8 @@ const Part = ({ coursePart }: Props) => {
       return (
         <div>
           <b>{coursePart.name}</b> {coursePart.exerciseCount} <br />{" "}
-          {coursePart.description} <br /> {coursePart.requirements}
+          {coursePart.description} <br /> required skills:{" "}
+          {coursePart.requirements[0]}, {coursePart.requirements[1]}
         </div>
       );
     default:
