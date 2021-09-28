@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import express from "express";
 import cors from "cors";
 import { getDiagnoses } from "./services/diagnoseService";
@@ -30,10 +29,14 @@ app.get("/api/patients", (_req, res) => {
 });
 app.get("/api/patients/:id", (req, res) => {
   const patient = getPatientById(req.params.id);
-  res.send(patient);
+  res.json(patient);
 });
 app.post("/api/patients", (req, res) => {
+  //
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { name, dateOfBirth, ssn, gender, occupation } = req.body;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const newPatient = addPatient({ name, dateOfBirth, ssn, gender, occupation });
 
   res.json(newPatient);

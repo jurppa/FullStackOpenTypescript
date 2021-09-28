@@ -15,6 +15,13 @@ export interface Patient {
   occupation: string;
   entries?: Entry[];
 }
+export interface BaseEntry {
+  id: string;
+  description: string;
+  date: string;
+  specialist: string;
+  diagnosisCodes?: Array<Diagnose["code"]>;
+}
 export type NonSensitivePatient = Omit<Patient, "ssn">;
 export type NewPatientEntry = Omit<Patient, "id" | "entries">;
 export type PublicPatient = Omit<Patient, "ssn" | "entries">;
