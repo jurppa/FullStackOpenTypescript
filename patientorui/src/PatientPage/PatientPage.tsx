@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import { getPatientById } from "../services/patientService";
 import { useStateValue } from "../state";
 import { Patient } from "../types";
+import Entry from "./Entry";
 const PatientPage = () => {
   const [patient, setPatient] = useState<Patient | null>(null);
   const [{ diagnosis }] = useStateValue();
@@ -35,12 +36,17 @@ const PatientPage = () => {
             <ul key={index}>
               {" "}
               <li>
-                {a.date} <i>{a.description}</i>
+                <Entry entry={a} />
               </li>{" "}
               {a.diagnosisCodes !== null
                 ? a.diagnosisCodes?.map((a, index) => (
                     <li key={index}>
-                      {a} {diagnosis.filter((a) => a.code)}{" "}
+                      {a}{" "}
+                      {diagnosis
+                        .filter((b) => b.code === a)
+                        .map((b) => (
+                          <>{b.name}</>
+                        ))}{" "}
                     </li>
                   ))
                 : ""}
