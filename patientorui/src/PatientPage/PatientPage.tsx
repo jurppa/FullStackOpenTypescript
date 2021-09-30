@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 
 import { getPatientById } from "../services/patientService";
+import { useStateValue } from "../state";
 import { Patient } from "../types";
 const PatientPage = () => {
   const [patient, setPatient] = useState<Patient | null>(null);
-
+  const [{ diagnosis }] = useStateValue();
+  console.log("diagnosis: ", diagnosis);
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
@@ -36,7 +38,11 @@ const PatientPage = () => {
                 {a.date} <i>{a.description}</i>
               </li>{" "}
               {a.diagnosisCodes !== null
-                ? a.diagnosisCodes?.map((a, index) => <li key={index}>{a}</li>)
+                ? a.diagnosisCodes?.map((a, index) => (
+                    <li key={index}>
+                      {a} {diagnosis.filter((a) => a.code)}{" "}
+                    </li>
+                  ))
                 : ""}
             </ul>
           ))
