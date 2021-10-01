@@ -1,16 +1,18 @@
 import React from "react";
 import { useStateValue } from "../state";
-import { BaseEntry } from "../types";
+import { Entry } from "../types";
+import EntryDetails from "./EntryDetails";
 interface Props {
-  entry: BaseEntry;
+  entry: Entry;
 }
-const Entry = ({ entry }: Props) => {
+const PatientsEntry = ({ entry }: Props) => {
   const [{ diagnosis }] = useStateValue();
 
   console.log(entry);
   return (
     <>
       {" "}
+      <h4>Diagnosis codes</h4>
       {entry.diagnosisCodes !== undefined
         ? entry.diagnosisCodes?.map((a, index) => (
             <li key={index}>
@@ -22,9 +24,11 @@ const Entry = ({ entry }: Props) => {
                 ))}{" "}
             </li>
           ))
-        : ""}
+        : "No diagnosis codes"}
+      <h4>Entry Details</h4>
+      <EntryDetails entry={entry} />
     </>
   );
 };
 
-export default Entry;
+export default PatientsEntry;

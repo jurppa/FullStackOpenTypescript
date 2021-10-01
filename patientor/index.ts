@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import { getDiagnoses } from "./services/diagnoseService";
 import {
+  addEntryToPatient,
   addPatient,
   getPatientById,
   getPatients,
@@ -30,6 +31,10 @@ app.get("/api/patients", (_req, res) => {
 app.get("/api/patients/:id", (req, res) => {
   const patient = getPatientById(req.params.id);
   res.json(patient);
+});
+app.post("/api/patients/:id/entries", (req, res) => {
+  const entry = addEntryToPatient(req.body, req.params.id);
+  res.json(entry);
 });
 app.post("/api/patients", (req, res) => {
   //

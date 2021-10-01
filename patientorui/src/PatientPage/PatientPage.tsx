@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
+import { Card, Icon } from "semantic-ui-react";
 
 import { getPatientById } from "../services/patientService";
 import { useStateValue } from "../state";
-import { Patient } from "../types";
-import Entry from "./Entry";
+import { Gender, Patient } from "../types";
+import Entry from "./PatientsEntry";
 const PatientPage = () => {
   const [patient, setPatient] = useState<Patient | null>(null);
   const [{ diagnosis }] = useStateValue();
@@ -18,42 +19,41 @@ const PatientPage = () => {
   console.log(patient);
 
   return (
-    <div>
+    <Card>
       {patient !== null ? (
         <div>
-          SSN: {patient.ssn} <br />
-          Name: {patient.name} <br />
-          Occupation: {patient.occupation} <br />
-          Gender: {patient.gender} <br />
-          Date of Birth: {patient.dateOfBirth}
+          <b>SSN:</b> {patient.ssn} <br />
+          <b>Name:</b> {patient.name} <br />
+          <b>Occupation:</b> {patient.occupation} <br />
+          <b> Gender:</b>{" "}
+          {patient.gender === Gender.Male ? (
+            <Icon name="male" />
+          ) : patient.gender === Gender.Female ? (
+            <Icon name="female" />
+          ) : (
+            <Icon name="other gender" />
+          )}{" "}
+          <br />
+          <b>Date of Birth:</b> {patient.dateOfBirth}
         </div>
       ) : (
         ""
       )}
-      <h4>entries</h4>
-      {patient?.entries !== null
-        ? patient?.entries?.map((a, index) => (
-            <ul key={index}>
-              {" "}
-              <li>
-                <Entry entry={a} />
-              </li>{" "}
-              {a.diagnosisCodes !== null
-                ? a.diagnosisCodes?.map((a, index) => (
-                    <li key={index}>
-                      {a}{" "}
-                      {diagnosis
-                        .filter((b) => b.code === a)
-                        .map((b) => (
-                          <>{b.name}</>
-                        ))}{" "}
-                    </li>
-                  ))
-                : ""}
-            </ul>
-          ))
-        : ""}
-    </div>
+      <Card>
+        <h4>Entries</h4>
+
+        {patient?.entries !== null
+          ? patient?.entries?.map((a, index) => (
+              <ul key={index}>
+                {" "}
+                <li>
+                  <Entry entry={a} />
+                </li>{" "}
+              </ul>
+            ))
+          : ""}
+      </Card>
+    </Card>
   );
 };
 

@@ -1,5 +1,5 @@
 import patients from "../data/patients";
-import { NewPatientEntry, Patient, NonSensitivePatient } from "../types";
+import { NewPatientEntry, Patient, NonSensitivePatient, Entry } from "../types";
 import { v1 as uuid } from "uuid";
 import {
   parseDate,
@@ -42,4 +42,29 @@ export const addPatient = (patient: NewPatientEntry): Patient => {
   };
   patients.push(newPatient);
   return newPatient;
+};
+
+//Add entry
+export const addEntryToPatient = (entry: Entry, id: string): Entry => {
+  const patientToAddEntryTo = getPatientById(id);
+
+  if (patientToAddEntryTo) {
+    // Tarkastetaan entryn tyypin mukaan
+    if (entry) {
+      switch (entry.type) {
+        case "HealthCheck":
+          const _validatedEntry = {};
+          break;
+
+        case "Hospital":
+          break;
+        default:
+          break;
+      }
+    }
+  } else {
+    throw new Error("Not correct id for patient or not found");
+  }
+  //patientToAddEntryTo.entries?.push(validatedEntry);
+  return entry;
 };
