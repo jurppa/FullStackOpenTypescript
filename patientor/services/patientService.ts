@@ -5,6 +5,7 @@ import {
   parseDate,
   parseGender,
   parseString,
+  validateEntry,
 } from "../utility/patientValidator";
 
 export const getPatients = (): Array<NonSensitivePatient> => {
@@ -47,24 +48,29 @@ export const addPatient = (patient: NewPatientEntry): Patient => {
 //Add entry
 export const addEntryToPatient = (entry: Entry, id: string): Entry => {
   const patientToAddEntryTo = getPatientById(id);
+  const validatedEntry = validateEntry(entry);
+  if (validatedEntry) {
+    switch (entry.type) {
+      case "HealthCheck":
+        if (entry.healthCheckRating !== null || undefined) {
+          patientToAddEntryTo.entries?.push(entry);
+          return entry;
+        } else {
+          throw new Error("HealthCheck entry not valid");
+        }
 
-  if (patientToAddEntryTo) {
-    // Tarkastetaan entryn tyypin mukaan
-    if (entry) {
-      switch (entry.type) {
-        case "HealthCheck":
-          const _validatedEntry = {};
-          break;
-
-        case "Hospital":
-          break;
-        default:
-          break;
-      }
+      case "Hospital":
+        patientToAddEntryTo.entries?.push(entry);
+        return entry;
+      case "OccupationalHealthcare":
+        //
+        if (entry.employerName.length > 1) {
+          patientToAddEntryTo.entries?.push(entry);
+        }
+        return entry;
+      default:
+        throw new Error("Not valid entry");
     }
-  } else {
-    throw new Error("Not correct id for patient or not found");
   }
-  //patientToAddEntryTo.entries?.push(validatedEntry);
-  return entry;
+  throw new Error("Error in entry");
 };
