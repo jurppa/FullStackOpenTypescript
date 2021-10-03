@@ -10,7 +10,8 @@ const EntryDetails: React.FC<{ entry: Entry }> = ({ entry }) => {
             Date: {entry.date} <br />
           </h4>
           Description: {entry.description} <br />
-          Specialist: {entry.specialist}
+          Specialist: {entry.specialist} <br />
+          Health Check Rating: {entry.healthCheckRating}
         </div>
       );
     case "Hospital":
@@ -21,8 +22,11 @@ const EntryDetails: React.FC<{ entry: Entry }> = ({ entry }) => {
             Date: {entry.date} <br />
           </h4>
           {entry.discharge !== undefined
-            ? `Discharge criteria: ${entry.discharge.criteria} discharge date: ${entry.discharge.date}`
-            : ""}
+            ? `Discharge criteria: ${
+                entry.discharge.criteria
+              } ${" "} discharge date: ${entry.discharge.date}`
+            : ""}{" "}
+          <br />
           Description: {entry.description} <br />
           Specialist: {entry.specialist}
         </div>

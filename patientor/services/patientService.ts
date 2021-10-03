@@ -48,6 +48,8 @@ export const addPatient = (patient: NewPatientEntry): Patient => {
 //Add entry
 export const addEntryToPatient = (entry: Entry, id: string): Entry => {
   const patientToAddEntryTo = getPatientById(id);
+  entry.id = uuid();
+  entry.date = new Date().toLocaleDateString();
   const validatedEntry = validateEntry(entry);
   if (validatedEntry) {
     switch (entry.type) {

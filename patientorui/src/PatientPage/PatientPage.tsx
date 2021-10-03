@@ -3,22 +3,18 @@ import { useParams } from "react-router";
 import { Button, Card, Icon } from "semantic-ui-react";
 
 import { getPatientById } from "../services/patientService";
-import { useStateValue } from "../state";
 import { Gender, Patient } from "../types";
 import AddEntry from "./AddEntry";
 import Entry from "./PatientsEntry";
 const PatientPage = () => {
   const [patient, setPatient] = useState<Patient | null>(null);
-  const [{ diagnosis }] = useStateValue();
   const [addEntry, setAddentry] = useState(false);
-  console.log("diagnosis: ", diagnosis);
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
     const patient = getPatientById(id);
     patient.then((a) => setPatient(a.data)).catch((e) => console.log(e));
-  }, []);
-  console.log(patient);
+  }, [addEntry]);
   if (addEntry == false) {
     return (
       <Card>
@@ -61,8 +57,10 @@ const PatientPage = () => {
   } else {
     return (
       <div>
-        ads
-        <Button label="Cancel" onClick={() => setAddentry(false)} />
+        <Button
+          onClick={() => setAddentry(false)}
+          label="Cancel adding entry"
+        />
         <AddEntry />
       </div>
     );
