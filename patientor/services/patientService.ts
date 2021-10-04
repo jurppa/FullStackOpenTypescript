@@ -40,6 +40,7 @@ export const addPatient = (patient: NewPatientEntry): Patient => {
     dateOfBirth: parseDate(patient.dateOfBirth),
     gender: parseGender(patient.gender),
     occupation: parseString(patient.occupation),
+    entries: [],
   };
   patients.push(newPatient);
   return newPatient;

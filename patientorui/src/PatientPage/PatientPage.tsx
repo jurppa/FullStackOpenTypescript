@@ -14,6 +14,7 @@ const PatientPage = () => {
   useEffect(() => {
     const patient = getPatientById(id);
     patient.then((a) => setPatient(a.data)).catch((e) => console.log(e));
+    console.log(patient);
   }, [addEntry]);
   if (addEntry == false) {
     return (
@@ -39,7 +40,7 @@ const PatientPage = () => {
         )}
         <Button onClick={() => setAddentry(true)} label="Add Entry" />
         <Card>
-          <h4>Entries</h4>
+          <h3 style={{ textAlign: "center" }}>Entries</h3>
 
           {patient?.entries !== null
             ? patient?.entries?.map((a, index) => (

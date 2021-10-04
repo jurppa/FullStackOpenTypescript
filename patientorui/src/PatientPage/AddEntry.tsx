@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button } from "semantic-ui-react";
 import HealthCheckForm from "./HealthCheckForm";
 import HospitalEntryForm from "./HospitalEntryForm";
+import OccupationalHealthcareForm from "./OccupationalHealthCareEntry";
 const AddEntry = () => {
   const [entryType, setEntryType] = useState("");
 
@@ -16,6 +17,10 @@ const AddEntry = () => {
         <Button
           label="HealthCheck Entry"
           onClick={() => setEntryType("HealthCheckEntry")}
+        />
+        <Button
+          label="Occupational Healthcare Entry"
+          onClick={() => setEntryType("OccupationalHealthCareEntry")}
         />
       </div>
     );
@@ -32,6 +37,13 @@ const AddEntry = () => {
     return (
       <div>
         <HealthCheckForm />
+      </div>
+    );
+  }
+  if (entryType === "OccupationalHealthCareEntry") {
+    return (
+      <div>
+        <OccupationalHealthcareForm />
       </div>
     );
   } else {
